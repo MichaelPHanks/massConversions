@@ -3,7 +3,7 @@
 #include <ratio>
 namespace usu
 {
-
+    // Default ratio is 1 to 1, default type is std::uint64_t
     template <typename T = std::ratio<1, 1>, typename R = std::uint64_t>
     class mass
     {
@@ -107,11 +107,18 @@ namespace usu
             return *this;
         }
 
+        template <typename S>
+        mass operator/(const S scalar) const
+        {
+            return mass(count() / static_cast<localType>(scalar));
+        }
+        template <typename S>
 
-        
-        
-        
-
+        mass& operator/=(const S scalar)
+        {
+            m_counter /= static_cast<localType>(scalar);
+            return *this;
+        }
 
       private:
         R m_counter;
@@ -121,18 +128,19 @@ namespace usu
         R convert(const X& other) const
         {
             double otherRatio = other.count() * (static_cast<double>(X::conversion::num) / X::conversion::den);
-            R newRatio = static_cast<R>(otherRatio * (static_cast<double>(conversion::den) / conversion::num));
-            return newRatio;
+            double newRatio = static_cast<double>(otherRatio * (static_cast<double>(conversion::den) / conversion::num));
+            return static_cast<R>(newRatio);
         }
     };
 
+    // Mass cast, returns new mass object.
     template <typename L, typename S>
     L mass_cast(S other)
     {
 
         double otherRatio = other.count() * (static_cast<double>(S::conversion::num) / S::conversion::den);
         double newRatio = static_cast<double>(otherRatio * (static_cast<double>(L::conversion::den) / L::conversion::num));
-        return L(newRatio);
+        return L(static_cast<L::localType>(newRatio));
     }
 
     template <typename T, typename R>
@@ -153,16 +161,11 @@ namespace usu
         return m_counter;
     }
 
-
     template <typename T, typename R, typename S>
-    mass<T, R> operator*(S scalar, const mass<T,R>& oldMass)
+    mass<T, R> operator*(S scalar, const mass<T, R>& oldMass)
     {
         return mass<T, R>(static_cast<R>(scalar) * oldMass.count());
     }
-
-
-
-    
 
     using gram = mass<std::ratio<1, 1>>;
     using microgram = mass<std::ratio<1, 1000000>>;

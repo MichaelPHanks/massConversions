@@ -114,7 +114,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(10u, mass5.count());
 }
 //
- TEST(Mass_Operator, CanSubtractOtherMass)
+TEST(Mass_Operator, CanSubtractOtherMass)
 {
     TestMass mass1(11);
     TestMass mass2(4);
@@ -129,7 +129,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(11u, mass1.count());
 }
 
- TEST(Mass_Operator, CanSubtractOtherMassOfDifferentTypes)
+TEST(Mass_Operator, CanSubtractOtherMassOfDifferentTypes)
 {
     BigMass mass1(14);
     SmallMass mass2(96);
@@ -158,7 +158,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(60u, mass3.count());
 }
 
- TEST(Mass_Operator, SubtractionAssignment)
+TEST(Mass_Operator, SubtractionAssignment)
 {
     TestMass mass1(8);
     TestMass mass2(3);
@@ -176,7 +176,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(6u, mass5.count());
 }
 
- TEST(Mass_Operator, SubtractionAssignmentMultipleMassTypes)
+TEST(Mass_Operator, SubtractionAssignmentMultipleMassTypes)
 {
     TestMass mass1(27);
     SmallMass mass2(18);
@@ -194,7 +194,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(2u, mass5.count());
 }
 
- TEST(Mass_Operator, CanMultiplyScalarMass)
+TEST(Mass_Operator, CanMultiplyScalarMass)
 {
     TestMass myMass(14);
 
@@ -203,7 +203,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(14u, myMass.count());
 }
 
- TEST(Mass_Operator, CanMultiplyMassScalar)
+TEST(Mass_Operator, CanMultiplyMassScalar)
 {
     TestMass myMass(4);
 
@@ -212,7 +212,7 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(4u, myMass.count());
 }
 
- TEST(Mass_Operator, MultiplicationAssignment)
+TEST(Mass_Operator, MultiplicationAssignment)
 {
     TestMass myMass(8);
 
@@ -229,35 +229,35 @@ TEST(Mass_Operator, AdditionAssignmentMultipleMassTypes)
     EXPECT_EQ(192u, myMass.count());
 }
 //
-// TEST(Mass_Operator, CanDivideMassScalar)
-//{
-//    TestMass myMass(18);
+TEST(Mass_Operator, CanDivideMassScalar)
+{
+    TestMass myMass(18);
+
+    TestMass result1 = myMass / 3;
+    EXPECT_EQ(18u / 3u, result1.count());
+    EXPECT_EQ(18u, myMass.count());
+
+    TestMass result2 = myMass / 2;
+    EXPECT_EQ(18u / 2u, result2.count());
+    EXPECT_EQ(18u, myMass.count());
+}
 //
-//    TestMass result1 = myMass / 3;
-//    EXPECT_EQ(18u / 3u, result1.count());
-//    EXPECT_EQ(18u, myMass.count());
-//
-//    TestMass result2 = myMass / 2;
-//    EXPECT_EQ(18u / 2u, result2.count());
-//    EXPECT_EQ(18u, myMass.count());
-//}
-//
-// TEST(Mass_Operator, DivisionAssignment)
-//{
-//    TestMass myMass(400);
-//
-//    myMass /= 2;
-//
-//    EXPECT_EQ(200u, myMass.count());
-//
-//    myMass /= 20;
-//
-//    EXPECT_EQ(10u, myMass.count());
-//
-//    myMass /= 4 + 1;
-//
-//    EXPECT_EQ(2u, myMass.count());
-//}
+TEST(Mass_Operator, DivisionAssignment)
+{
+    TestMass myMass(400);
+
+    myMass /= 2;
+
+    EXPECT_EQ(200u, myMass.count());
+
+    myMass /= 20;
+
+    EXPECT_EQ(10u, myMass.count());
+
+    myMass /= 4 + 1;
+
+    EXPECT_EQ(2u, myMass.count());
+}
 //
 TEST(Mass_Cast, CanDoIdentityCast)
 {
