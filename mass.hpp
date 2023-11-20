@@ -20,6 +20,7 @@ namespace usu
         {
             return mass(count() + convert(other));
         }
+
         template <typename X>
 
         bool operator==(const X& other) const
@@ -64,23 +65,40 @@ namespace usu
         }
 
         template <typename X>
-        std::strong_ordering operator<=>(const X& other) const
+        auto operator<=>(const X& other) const
         {
-            R convertedNum = convert(other);
-            if (count() > convertedNum)
+
+            auto converted = mass_cast<mass<T, R>>(other).count();
+            if constexpr (std::is_integral<decltype(converted)>::value)
             {
-                return std::strong_ordering::greater;
+                if (count() > converted)
+                {
+                    return std::strong_ordering::greater;
+                }
+                else if (count() < converted)
+                {
+                    return std::strong_ordering::less;
+                }
+                return std::strong_ordering::equal;
             }
-            else if (count() < convertedNum)
+            else
             {
-                return std::strong_ordering::less;
+                if (count() > converted)
+                {
+                    return std::partial_ordering::greater;
+                }
+                else if (count() < converted)
+                {
+                    return std::partial_ordering::less;
+                }
+                return std::partial_ordering::equivalent;
             }
-            return std::strong_ordering::equivalent;
         }
 
         template <typename X>
         mass& operator+=(const X& other)
         {
+
             m_counter += convert(other);
             return *this;
         }
@@ -122,11 +140,12 @@ namespace usu
 
       private:
         R m_counter;
-        template <typename X>
 
         // Helper to get the ratio
+        template <typename X>
         R convert(const X& other) const
         {
+
             double otherRatio = other.count() * (static_cast<double>(X::conversion::num) / X::conversion::den);
             double newRatio = static_cast<double>(otherRatio * (static_cast<double>(conversion::den) / conversion::num));
             return static_cast<R>(newRatio);
