@@ -20,7 +20,7 @@ namespace usu
         {
             return mass(count() + convert(other));
         }
-
+        // typename X is used for most operators, X is potentially differing mass type
         template <typename X>
 
         bool operator==(const X& other) const
@@ -113,6 +113,8 @@ namespace usu
             m_counter -= convert(other);
             return *this;
         }
+
+        // Scalar is on right side
         template <typename S>
         mass operator*(const S scalar) const
         {
@@ -180,6 +182,7 @@ namespace usu
         return m_counter;
     }
 
+    // Scalar is on left side
     template <typename T, typename R, typename S>
     mass<T, R> operator*(S scalar, const mass<T, R>& oldMass)
     {
