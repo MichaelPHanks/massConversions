@@ -1,6 +1,7 @@
 #include <cstdint>
 #include <iostream>
 #include <ratio>
+#pragma once
 namespace usu
 {
     // Default ratio is 1 to 1, default type is std::uint64_t
